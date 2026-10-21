@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuis Fisika - Gerak Parabola</title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --bg-color: #f4f7f6;
+      --card-bg: #ffffff;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      width: 100%;
+      max-width: 700px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .header h2 {
+      margin: 0;
+    }
+
+    /* Tab Navigation */
+    .nav-tabs {
+      display: flex;
+      background-color: #e0e0e0;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 15px;
+      text-align: center;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      color: #666;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .tab-btn.active {
+      background-color: var(--card-bg);
+      color: var(--secondary-color);
+      border-bottom: 3px solid var(--secondary-color);
+    }
+
+    .tab-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    /* Tab Content */
+    .tab-content {
+      padding: 30px;
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .btn {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+    }
+
+    /* Quiz Styles */
+    .question-box {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .question-text {
+      font-weight: bold;
+      margin-bottom: 12px;
+      color: #2c3e50;
+    }
+
+    .options-group label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      padding: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .options-group label:hover {
+      background-color: #f0f8ff;
+    }
+
+    .options-group input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    /* Notification */
+    #status-msg {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h2>Kuis Fisika: Gerak Parabola</h2>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" id="tab-btn-1">1. Identitas Murid</button>
+      <button class="tab-btn" id="tab-btn-2" disabled>2. Soal Kuis</button>
+    </div>
+
+    <form id="quiz-form">
+      <!-- TAB 1: IDENTITAS -->
+      <div class="tab-content active" id="tab-1">
+        <h3>Masukkan Identitas Diri</h3>
+        <div class="form-group">
+          <label for="nama">Nama Lengkap:</label>
+          <input type="text" id="nama" name="nama" required placeholder="Contoh: Budi Santoso">
+        </div>
+        <div class="form-group">
+          <label for="kelas">Kelas:</label>
+          <input type="text" id="kelas" name="kelas" required placeholder="Contoh: XI MIPA 1">
+        </div>
+        <div class="form-group">
+          <label for="sekolah">Nama Sekolah:</label>
+          <input type="text" id="sekolah" name="sekolah" required placeholder="Contoh: SMAN 1 Jakarta">
+        </div>
+        <button type="button" class="btn" onclick="simpanIdentitas()">Simpan & Lanjutkan</button>
+      </div>
+
+      <!-- TAB 2: SOAL KUIS -->
+      <div class="tab-content" id="tab-2">
+        <h3>Jawablah Soal Berikut dengan Benar!</h3>
+
+        <!-- Soal 1 -->
+        <div class="question-box">
+          <div class="question-text">1. Lintasan yang ditempuh oleh benda yang mengalami gerak parabola berbentuk...</div>
+          <div class="options-group">
+            <label><input type="radio" name="q1" value="A" required> A. Lurus beraturan</label>
+            <label><input type="radio" name="q1" value="B"> B. Melingkar beraturan</label>
+            <label><input type="radio" name="q1" value="C"> C. Parabola / Melengkung</label>
+            <label><input type="radio" name="q1" value="D"> D. Zig-zag</label>
+            <label><input type="radio" name="q1" value="E"> E. Elips sempurna</label>
+          </div>
+        </div>
+
+        <!-- Soal 2 -->
+        <div class="question-box">
+          <div class="question-text">2. Pada gerak parabola, komponen kecepatan benda pada arah horizontal (sumbu-X) bersifat...</div>
+          <div class="options-group">
+            <label><input type="radio" name="q2" value="A" required> A. Selalu konstan (GLB)</label>
+            <label><input type="radio" name="q2" value="B"> B. Berubah beraturan (GLBB)</label>
+            <label><input type="radio" name="q2" value="C"> C. Berjumlah nol di titik tertinggi</label>
+            <label><input type="radio" name="q2" value="D"> D. Selalu mengalami percepatan gravitasi</label>
+            <label><input type="radio" name="q2" value="E"> E. Bertambah secara eksponensial</label>
+          </div>
+        </div>
+
+        <!-- Soal 3 -->
+        <div class="question-box">
+          <div class="question-text">3. Komponen kecepatan vertical (sumbu-Y) benda saat berada di titik tertinggi bernilai...</div>
+          <div class="options-group">
+            <label><input type="radio" name="q3" value="A" required> A. Maksimum</label>
+            <label><input type="radio" name="q3" value="B"> B. Nol</label>
+            <label><input type="radio" name="q3" value="C"> C. Sama dengan kecepatan awal</label>
+            <label><input type="radio" name="q3" value="D"> D. Lebih besar dari sumbu-X</label>
+            <label><input type="radio" name="q3" value="E"> E. Berharga negatif</label>
+          </div>
+        </div>
+
+        <!-- Soal 4 -->
+        <div class="question-box">
+          <div class="question-text">4. Sudut elevasi ($\theta$) yang menghasilkan jarak jangkauan horizontal maksimum ($X_{max}$) pada gerak parabola adalah...</div>
+          <div class="options-group">
+            <label><input type="radio" name="q4" value="A" required> A. 30°</label>
+            <label><input type="radio" name="q4" value="B"> B. 45°</label>
+            <label><input type="radio" name="q4" value="C"> C. 60°</label>
+            <label><input type="radio" name="q4" value="D"> D. 90°</label>
+            <label><input type="radio" name="q4" value="E"> E. 0°</label>
+          </div>
+        </div>
+
+        <!-- Soal 5 -->
+        <div class="question-box">
+          <div class="question-text">5. Faktor yang mempengaruhi besarnya percepatan yang dialami benda saat bergerak parabola (dengan mengabaikan gesekan udara) adalah...</div>
+          <div class="options-group">
+            <label><input type="radio" name="q5" value="A" required> A. Massa benda</label>
+            <label><input type="radio" name="q5" value="B"> B. Sudut elevasi</label>
+            <label><input type="radio" name="q5" value="C"> C. Kecepatan awal</label>
+            <label><input type="radio" name="q5" value="D"> D. Percepatan gravitasi bumi</label>
+            <label><input type="radio" name="q5" value="E"> E. Bentuk permukaan benda</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn" id="submit-btn">Kirim Jawaban</button>
+        <div id="status-msg"></div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // URL Web App Google Apps Script Anda (Ganti setelah melakukan setup di Google Sheets)
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9W5GD22sJ7FELqoblZkx8mBfTQzw0FWwUKNbSbLcq9R9gFQyUS7AvSKhi9_IMhqhy4w/exec";
+
+    function simpanIdentitas() {
+      const nama = document.getElementById('nama').value.trim();
+      const kelas = document.getElementById('kelas').value.trim();
+      const sekolah = document.getElementById('sekolah').value.trim();
+
+      if (nama === "" || kelas === "" || sekolah === "") {
+        alert("Harap lengkapi semua data identitas terlebih dahulu!");
+        return;
+      }
+
+      // Aktifkan Tab 2 dan Pindah Tampilan
+      document.getElementById('tab-btn-2').disabled = false;
+      
+      document.getElementById('tab-1').classList.remove('active');
+      document.getElementById('tab-2').classList.add('active');
+
+      document.getElementById('tab-btn-1').classList.remove('active');
+      document.getElementById('tab-btn-2').classList.add('active');
+    }
+
+    // Kunci Jawaban (Q1:C, Q2:A, Q3:B, Q4:B, Q5:D)
+    const kunciJawaban = { q1: 'C', q2: 'A', q3: 'B', q4: 'B', q5: 'D' };
+
+    document.getElementById('quiz-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submit-btn');
+      const statusMsg = document.getElementById('status-msg');
+      
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Mengirim...";
+      statusMsg.innerText = "";
+
+      // Ambil Nilai Form
+      const formData = new FormData(this);
+      
+      // Hitung Skor
+      let skor = 0;
+      for (let q in kunciJawaban) {
+        if (formData.get(q) === kunciJawaban[q]) {
+          skor += 20; // 5 soal x 20 = 100
+        }
+      }
+
+      // Kirim Data ke Google Sheet
+      const dataPayload = {
+        nama: formData.get('nama'),
+        kelas: formData.get('kelas'),
+        sekolah: formData.get('sekolah'),
+        q1: formData.get('q1'),
+        q2: formData.get('q2'),
+        q3: formData.get('q3'),
+        q4: formData.get('q4'),
+        q5: formData.get('q5'),
+        skor: skor
+      };
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataPayload)
+      })
+      .then(() => {
+        statusMsg.style.color = "green";
+        statusMsg.innerText = `Jawaban berhasil dikirim! Skor Anda: ${skor}/100`;
+        submitBtn.innerText = "Terkirim";
+      })
+      .catch(error => {
+        statusMsg.style.color = "red";
+        statusMsg.innerText = "Terjadi kesalahan saat mengirim jawaban.";
+        console.error('Error!', error.message);
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Kirim Jawaban";
+      });
+    });
+  </script>
+</body>
+</html>
